@@ -1,0 +1,6 @@
+@regrando.API_HostAddress = http://localhost:5207
+
+GET {{regrando.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
