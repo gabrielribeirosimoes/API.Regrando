@@ -1,15 +1,21 @@
-﻿using System;
+﻿using regrando.API.Models.Enums;
+using System.ComponentModel.DataAnnotations;
 
 namespace regrando.API.Models
 {
-    public class Objetivo
+    public partial class Objetivo
     {
+        [Key]
         public int IdObjetivo { get; set; }
 
+        [Required]
         public int IdUsuario { get; set; }
 
+        [Required]
+        [StringLength(100)]
         public string DsObjetivo { get; set; }
 
-        public int TipoObjetivo { get; set; }
+        [Required]
+        public TipoObjetivo TipoObjetivo { get; set; }
     }
 }

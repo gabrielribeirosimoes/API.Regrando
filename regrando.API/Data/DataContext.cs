@@ -1,5 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using regrando.API.Models;
+using regrando.API.Models.Enums;
+
 
 namespace regrando.API.Data
 {
@@ -24,7 +26,7 @@ namespace regrando.API.Data
 
             modelBuilder.Entity<Refeicoes>().HasData(
                 new Refeicoes() { IdRefeicao = 1, IdUsuario = 1, IdAlimento = 1, TpRefeicao = "Almoço", HrRefeicao = TimeSpan.FromHours(12) },
-                new Refeicoes() { IdRefeicao = 2, IdUsuario = 1, IdAlimento = 2, TpRefeicao = "Jantar", HrRefeicao = TimeSpan.FromHours(19) }
+                new Refeicoes() { IdRefeicao = 2, IdUsuario = 2, IdAlimento = 2, TpRefeicao = "Jantar", HrRefeicao = TimeSpan.FromHours(19) }
             );
 
             // Configurando a entidade Aguas
@@ -44,15 +46,16 @@ namespace regrando.API.Data
                 new Usuario() { IdUsuario = 1, Cpf = "123456789", Nome = "Exemplo", Peso = 70, Altura = 1.75, Sexo = "Masculino", Objetivo = 1 }
             );
 
-            modelBuilder.Entity<Objetivo>()
-                .HasKey(o => o.IdObjetivo);
+            //modelBuilder.Entity<Objetivo>().ToTable("TB_OBJETIVO");
+            modelBuilder.Entity<Objetivo>().HasKey(o => o.IdObjetivo);
+            modelBuilder.Entity<Objetivo>().HasIndex(o => o.IdUsuario).IsUnique();
 
             modelBuilder.Entity<Objetivo>().HasData(
-               new Objetivo { IdObjetivo = 1, IdUsuario = 1, DsObjetivo = "Manutenção da Saúde Geral", TipoObjetivo = 1 },
-               new Objetivo { IdObjetivo = 2, IdUsuario = 1, DsObjetivo = "Ganho de Massa Muscular", TipoObjetivo = 2 },
-               new Objetivo { IdObjetivo = 3, IdUsuario = 1, DsObjetivo = "Melhoria da Saúde Digestiva", TipoObjetivo = 3 },
-               new Objetivo { IdObjetivo = 4, IdUsuario = 1, DsObjetivo = "Perda de Peso", TipoObjetivo = 4 }
-           );
+                new Objetivo { IdObjetivo = 1, IdUsuario = 1, DsObjetivo = "Manutenção da Saúde Geral", TipoObjetivo = TipoObjetivo.ManutencaoSaudeGeral },
+                new Objetivo { IdObjetivo = 2, IdUsuario = 2, DsObjetivo = "Ganho de Massa Muscular", TipoObjetivo = TipoObjetivo.GanhoMassaMuscular },
+                new Objetivo { IdObjetivo = 3, IdUsuario = 3, DsObjetivo = "Melhoria da Saúde Digestiva", TipoObjetivo = TipoObjetivo.MelhoriaSaudeDigestiva },
+                new Objetivo { IdObjetivo = 4, IdUsuario = 4, DsObjetivo = "Perda de Peso", TipoObjetivo = TipoObjetivo.PerdaPeso }
+            );
 
             modelBuilder.Entity<Alimento>().HasKey(a => a.IdAlimento);
 
