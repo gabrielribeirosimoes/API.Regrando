@@ -17,6 +17,8 @@ namespace regrando.API.Data
         public DbSet<Usuario> TB_USUARIO { get; set; }
         public DbSet<Objetivo> TB_OBJETIVO { get; set; }
         public DbSet<Alimento> TB_ALIMENTO { get; set; }
+        public DbSet<Receita> TB_RECEITA { get; set; }
+        public DbSet<Cadastro> TB_CADASTRO { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -38,9 +40,26 @@ namespace regrando.API.Data
                 new Aguas() { IdAgua = 2, HrAgua = TimeSpan.FromHours(12), QtdAgua = 300 }
             );
 
+            // Configurando a entidade Cadastro
+            modelBuilder.Entity<Cadastro>()
+               .HasKey(c => c.Id);
+
+            modelBuilder.Entity<Usuario>()
+                .HasKey(u => u.IdUsuario);
+
+            // Relacionamento um-para-um entre Cadastro e Usuario
+            modelBuilder.Entity<Cadastro>()
+                .HasOne(c => c.Usuario)
+                .WithOne(u => u.Cadastro)
+                .HasForeignKey<Cadastro>(c => c.UsuarioId);
+
             // Configurando a entidade Usuario
             modelBuilder.Entity<Usuario>()
                 .HasKey(e => e.IdUsuario);
+
+            modelBuilder.Entity<Usuario>()
+                .Property(e => e.IdUsuario)
+                .ValueGeneratedOnAdd();
 
             modelBuilder.Entity<Usuario>().HasData(
                 new Usuario() { IdUsuario = 1, Cpf = "123456789", Nome = "Exemplo", Peso = 70, Altura = 1.75, Sexo = "Masculino", Objetivo = 1 }
@@ -56,6 +75,31 @@ namespace regrando.API.Data
                 new Objetivo { IdObjetivo = 3, IdUsuario = 3, DsObjetivo = "Melhoria da Saúde Digestiva", TipoObjetivo = TipoObjetivo.MelhoriaSaudeDigestiva },
                 new Objetivo { IdObjetivo = 4, IdUsuario = 4, DsObjetivo = "Perda de Peso", TipoObjetivo = TipoObjetivo.PerdaPeso }
             );
+
+            modelBuilder.Entity<Receita>().HasKey(r => r.IdReceita);
+
+            modelBuilder.Entity<Receita>().HasData(
+                new Receita
+                {
+                    IdReceita = 1,
+                    NomeReceita = "Bolo de cenoura",
+                    Descricao = "Delicioso bolo de cenoura com cobertura de chocolate",
+                    Ingredientes = "Cenoura, óleo, ovos, açúcar, farinha de trigo, fermento em pó, chocolate",
+                    ModoPreparo = "1. Bata no liquidificador as cenouras, óleo e ovos. 2. Adicione o açúcar e a farinha de trigo. 3. Por último, coloque o fermento e misture delicadamente. 4. Asse em forno médio por aproximadamente 40 minutos.",
+                    Calorias = 200,
+                    TempoPreparoMinutos = 40
+                },
+                new Receita
+                {
+                    IdReceita = 2,
+                    NomeReceita = "Salada de quinoa",
+                    Descricao = "Salada refrescante com quinoa, tomate, pepino e temperos",
+                    Ingredientes = "Quinoa, tomate, pepino, azeite, limão, sal",
+                    ModoPreparo = "1. Cozinhe a quinoa conforme as instruções da embalagem. 2. Corte os tomates e pepinos em cubos. 3. Misture tudo e tempere a gosto. 4. Sirva frio.",
+                    Calorias = 150,
+                    TempoPreparoMinutos = 30
+                }
+               );
 
             modelBuilder.Entity<Alimento>().HasKey(a => a.IdAlimento);
 
