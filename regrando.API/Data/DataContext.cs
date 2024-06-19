@@ -23,12 +23,23 @@ namespace regrando.API.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             // Configurando a entidade Refeicoes
-            modelBuilder.Entity<Refeicoes>()
-                .HasKey(e => e.IdRefeicao);
+            modelBuilder.Entity<Usuario>()
+               .HasKey(u => u.IdUsuario);
 
+            modelBuilder.Entity<Refeicoes>()
+                .HasKey(r => r.IdRefeicao);
+
+            modelBuilder.Entity<Refeicoes>()
+                .HasOne(r => r.Usuario)         // Uma refeição pertence a um usuário
+                .WithMany(u => u.Refeicoes)     // Um usuário pode ter várias refeições
+                .HasForeignKey(r => r.IdUsuario)
+                .IsRequired();
+
+            // Configuração de dados iniciais para Refeicoes
             modelBuilder.Entity<Refeicoes>().HasData(
                 new Refeicoes() { IdRefeicao = 1, IdUsuario = 1, IdAlimento = 1, TpRefeicao = "Almoço", HrRefeicao = TimeSpan.FromHours(12) },
                 new Refeicoes() { IdRefeicao = 2, IdUsuario = 2, IdAlimento = 2, TpRefeicao = "Jantar", HrRefeicao = TimeSpan.FromHours(19) }
+                // Adicione mais refeições conforme necessário
             );
 
             // Configurando a entidade Aguas

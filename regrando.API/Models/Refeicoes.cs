@@ -7,6 +7,7 @@ namespace regrando.API.Models
         public int IdRefeicao { get; set; }
 
         public int IdUsuario { get; set; }
+        public  Usuario Usuario { get; set; }
 
         public int IdAlimento { get; set; }
 

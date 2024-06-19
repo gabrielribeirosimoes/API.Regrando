@@ -22,7 +22,8 @@ namespace regrando.API.Controllers
         [HttpGet]
         public ActionResult<IEnumerable<Aguas>> GetAguas()
         {
-            return _context.TB_AGUAS.ToList();
+            var aguas = _context.TB_AGUAS.ToList();
+            return Ok(aguas);
         }
 
         // GET: api/Aguas/5
@@ -36,7 +37,7 @@ namespace regrando.API.Controllers
                 return NotFound();
             }
 
-            return aguas;
+            return Ok(aguas);
         }
 
         // POST: api/Aguas

@@ -34,5 +34,7 @@ namespace regrando.API.Models
         // Propriedade de navegação para Cadastro
         public Cadastro Cadastro { get; set; }
 
+        public ICollection<Refeicoes> Refeicoes { get; set; }
+
     }
 }
