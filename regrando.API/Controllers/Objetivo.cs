@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace regrando.API.Controllers
 {
-    [Route("api/Objetivo")]
+    [Route("/Objetivo")]
     [ApiController]
     public class ObjetivoController : ControllerBase
     {

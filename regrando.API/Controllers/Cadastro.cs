@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace regrando.API.Controllers
 {
-    [Route("api/Cadastro")]
+    [Route("/Cadastro")]
     [ApiController]
     public class CadastroController : ControllerBase
     {

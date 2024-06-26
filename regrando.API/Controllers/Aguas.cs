@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace regrando.API.Controllers
 {
-    [Route("api/Aguas")]
+    [Route("/Aguas")]
     [ApiController]
     public class AguasController : ControllerBase
     {

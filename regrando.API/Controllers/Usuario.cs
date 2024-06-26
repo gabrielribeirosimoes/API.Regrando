@@ -7,7 +7,7 @@ using System.Linq;
 
 namespace regrando.API.Controllers
 {
-    [Route("api/Usuario")]
+    [Route("/Usuario")]
     [ApiController]
     public class UsuarioController : ControllerBase
     {
